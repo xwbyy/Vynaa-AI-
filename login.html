@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Vynaa AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-I+JGBD+OwvNRwevprNJyPI5DleO5dtkkGel6dYyEw7mcQ+lmXpPT4PBVzxd4/1+hPvScg5PZqSj7q29NusGJxw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f2;
+            margin: 0;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+            color: #ff66b2;
+            font-family: 'Lobster', cursive;
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .input-container i {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: #888;
+        }
+        .input-container input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            padding-left: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+            text-align: left;
+            margin-left: 10px;
+        }
+        .login-container button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff66b2;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        .login-container button:hover {
+            background-color: #ff4d94;
+        }
+        .login-container .remember-me {
+            text-align: left;
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+        .login-container .forgot-password {
+            display: block;
+            margin-bottom: 20px;
+            color: #ff66b2;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        .login-container .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .login-container .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            margin-left: 10px;
+        }
+        .login-container .footer a {
+            color: #ff66b2;
+            text-decoration: none;
+        }
+        .login-container .footer a:hover {
+            text-decoration: underline;
+        }
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login Vynaa AI</h1>
+        <div class="input-container">
+            <i class="fa fa-user"></i>
+            <input id="username" type="text" placeholder="Username" required>
+        </div>
+        <div class="input-container">
+            <i class="fa fa-lock"></i>
+            <input id="password" type="password" placeholder="Password" required>
+        </div>
+        <div class="remember-me">
+            <label><input type="checkbox"> Ingat Saya</label>
+        </div>
+        <div id="error" class="error">Username atau password salah</div>
+        <button onclick="login()">Login</button>
+        <div class="footer">
+            Belum punya akun? <a href="#">Daftar disini</a>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Vynaa Valerie
+        </div>
+    </div>
+    <script>
+        function login() {
+            const users = [
+                { username: "amar", password: "april" },
+                { username: "", password: "" },
+                { username: "", password: "" },
+                { username: "", password: "" }
+            ];
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('error');
+
+            const user = users.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.href = 'index.html';
+            } else {
+                error.style.display = 'block';
+            }
+        }
+
+        // Check if already logged in
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
