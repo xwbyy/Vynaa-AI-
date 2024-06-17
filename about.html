@@ -1,163 +1,178 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vynaa AI</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            body {
-                font-family: Arial, sans-serif;
-                background: #f0f0f0;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
-            }
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vynaa AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            margin: 20px;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-image: url("https://telegra.ph/file/7d63a20290154d1f6f074.jpg");
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 20px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #ff66b2;
+        }
+        p {
+            font-size: 1em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .features,
+        .advantages {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .features h2,
+        .advantages h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ff99cc;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background: #ffe6f2;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            color: #333;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
             .container {
-                background: rgba(255, 255, 255, 0.8);
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                max-width: 600px;
-                width: 100%;
-                text-align: center;
-                margin: 20px;
+                padding: 15px;
+                margin: 10px;
             }
             .profile-pic {
-                width: 150px;
-                height: 150px;
-                border-radius: 50%;
-                background-image: url("https://telegra.ph/file/7d63a20290154d1f6f074.jpg");
-                background-size: cover;
-                background-position: center;
-                margin: 0 auto 20px;
+                width: 100px;
+                height: 100px;
             }
             h1 {
-                font-size: 2em;
-                margin-bottom: 10px;
-                color: #ff66b2;
-            }
-            p {
-                font-size: 1em;
-                margin-bottom: 20px;
-                color: #333;
-            }
-            .features,
-            .advantages {
-                text-align: left;
-                margin-bottom: 20px;
+                font-size: 1.5em;
             }
             .features h2,
             .advantages h2 {
-                font-size: 1.5em;
-                margin-bottom: 10px;
-                color: #ff99cc;
-            }
-            ul {
-                list-style: none;
-                padding: 0;
+                font-size: 1.2em;
             }
             ul li {
-                background: #ffe6f2;
-                margin: 5px 0;
-                padding: 10px;
-                border-radius: 5px;
-                color: #333;
+                padding: 8px;
             }
-            .footer {
-                text-align: center;
-                font-size: 0.8em;
-                color: #999;
-                margin-top: 20px;
-            }
-            @media (max-width: 768px) {
-                .container {
-                    padding: 15px;
-                    margin: 10px;
-                }
-                .profile-pic {
-                    width: 100px;
-                    height: 100px;
-                }
-                h1 {
-                    font-size: 1.5em;
-                }
-                .features h2,
-                .advantages h2 {
-                    font-size: 1.2em;
-                }
-                ul li {
-                    padding: 8px;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="profile-pic"></div>
-            <h1>Vynaa AI</h1>
-            <p>
-                Vynaa AI adalah asisten AI yang pintar dan ceria, diciptakan
-                oleh Vynaa Valerie. Dengan sifat ceria dan selalu membantu orang
-                lain, Vynaa AI adalah teman yang menyenangkan dan dapat
-                diandalkan.
-            </p>
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-pic"></div>
+        <h1>Vynaa AI</h1>
+        <p>
+            Vynaa AI adalah asisten AI yang pintar dan ceria, diciptakan
+            oleh Vynaa Valerie. Dengan sifat ceria dan selalu membantu orang
+            lain, Vynaa AI adalah teman yang menyenangkan dan dapat
+            diandalkan.
+        </p>
 
-            <div class="features">
-                <h2>Fitur</h2>
-                <ul>
-                    <li>
-                        Chat Responsif: Menyediakan respons cepat dan relevan
-                        untuk berbagai pertanyaan.
-                    </li>
-                    <li>
-                        Pengingat: Membantu mengingatkan tugas-tugas penting
-                        Anda.
-                    </li>
-                    <li>
-                        Penjadwalan: Mengatur jadwal harian Anda dengan mudah.
-                    </li>
-                    <li>
-                        Rekomendasi: Memberikan rekomendasi berdasarkan
-                        preferensi Anda.
-                    </li>
-                </ul>
-            </div>
-
-            <div class="advantages">
-                <h2>Kelebihan</h2>
-                <ul>
-                    <li>
-                        Ceria dan Positif: Selalu memberikan semangat positif
-                        dalam setiap percakapan.
-                    </li>
-                    <li>
-                        Mudah Digunakan: Antarmuka yang intuitif dan
-                        user-friendly.
-                    </li>
-                    <li>
-                        Adaptif: Mampu belajar dari interaksi untuk memberikan
-                        pengalaman yang lebih baik.
-                    </li>
-                    <li>
-                        Manis dan Ramah: Gaya bicara yang manis dan ramah,
-                        membuat percakapan lebih menyenangkan.
-                    </li>
-                </ul>
-            </div>
-
-            <p>
-                Vynaa AI siap membantu Anda dengan berbagai kebutuhan
-                sehari-hari. Mari berbicara dan temukan bagaimana Vynaa AI dapat
-                membuat hidup Anda lebih mudah dan menyenangkan!
-            </p>
+        <div class="features">
+            <h2>Fitur</h2>
+            <ul>
+                <li>
+                    <strong>Simi Mode:</strong> Mengaktifkan mode untuk berinteraksi dengan Simi, semacam AI chatbot.
+                </li>
+                <li>
+                    <strong>/aiimage1 &lt;query&gt;:</strong> Menghasilkan gambar dari teks menggunakan API.
+                </li>
+                <li>
+                    <strong>/aiimage2 &lt;query&gt;:</strong> Menghasilkan gambar dari teks menggunakan API.
+                </li>
+                <li>
+                    <strong>/aiimage3 &lt;query&gt;:</strong> Menghasilkan gambar dari teks menggunakan API.
+                </li>
+                <li>
+                    <strong>/ttdl &lt;url&gt;:</strong> Mengunduh video dari URL tertentu.
+                </li>
+                <li>
+                    <strong>/igdl &lt;url&gt;:</strong> Mengunduh gambar dari Instagram.
+                </li>
+                <li>
+                    <strong>/modesimi:</strong> Mengaktifkan mode Simi.
+                </li>
+                <li>
+                    <strong>/offsimi:</strong> Menonaktifkan mode Simi.
+                </li>
+                <li>
+                    <strong>/trackip &lt;ip address&gt;:</strong> Mendapatkan informasi detail dari alamat IP.
+                </li>
+                <li>
+                    <strong>/play &lt;query&gt;:</strong> Memutar video dari YouTube berdasarkan query.
+                </li>
+                <li>
+                    <strong>/pin &lt;query&gt;:</strong> Mencari dan menampilkan gambar dari Pinterest berdasarkan query.
+                </li>
+                <li>
+                    <strong>/news:</strong> Menampilkan berita terbaru.
+                </li>
+            </ul>
         </div>
-        <div class="footer">&copy; 2024 Vynaa AI. All rights reserved.</div>
-    </body>
+
+        <div class="advantages">
+            <h2>Kelebihan</h2>
+            <ul>
+                <li>
+                    Ceria dan Positif: Selalu memberikan semangat positif dalam setiap percakapan.
+                </li>
+                <li>
+                    Mudah Digunakan: Antarmuka yang intuitif dan user-friendly.
+                </li>
+                <li>
+                    Adaptif: Mampu belajar dari interaksi untuk memberikan pengalaman yang lebih baik.
+                </li>
+                <li>
+                    Manis dan Ramah: Gaya bicara yang manis dan ramah, membuat percakapan lebih menyenangkan.
+                </li>
+            </ul>
+        </div>
+
+        <p>
+            Vynaa AI siap membantu Anda dengan berbagai kebutuhan sehari-hari. Mari berbicara dan temukan bagaimana Vynaa AI dapat membuat hidup Anda lebih mudah dan menyenangkan!
+        </p>
+    </div>
+    <div class="footer">&copy; 2024 Vynaa AI. All rights reserved.</div>
+</body>
 </html>
