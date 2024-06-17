@@ -5,194 +5,227 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vynaa AI</title>
     <style>
-    <!DOCTYPE html>
-    <html lang="id">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Vynaa AI</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            html, body {
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                font-family: Arial, sans-serif;
-                background-color: #ffe6f2;
-            }
-            .chat-container {
-                display: flex;
-                flex-direction: column;
-                background: #fff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                overflow: hidden;
-                height: 100%;
-                margin: 10px;
-            }
-            .chat-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background-color: #ff99cc;
-                padding: 10px;
-                color: #fff;
-                position: relative;
-                cursor: pointer;
-            }
-            .menu-items {
-                display: none;
-                position: absolute;
-                top: 50px;
-                left: 10px;
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                border-radius: 5px;
-                overflow: hidden;
-            }
-            .menu-items a {
-                display: block;
-                padding: 10px;
-                color: #333;
-                text-decoration: none;
-                border-bottom: 1px solid #eee;
-            }
-            .menu-items a:hover {
-                background-color: #f5f5f5;
-            }
-            .history-items {
-                display: none;
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                border-radius: 5px;
-                overflow: hidden;
-                margin-top: 10px;
-            }
-            .history-items a {
-                display: block;
-                padding: 10px;
-                color: #333;
-                text-decoration: none;
-                border-bottom: 1px solid #eee;
-            }
-            .history-items a:hover {
-                background-color: #f5f5f5;
-            }
-            .chat-messages {
-                flex: 1;
-                overflow-y: auto;
-                padding: 10px;
-                border-bottom: 1px solid #eee;
-            }
-            .chat-message {
-                margin-bottom: 10px;
-                word-wrap: break-word;
-                display: flex;
-                align-items: flex-start;
-            }
-            .chat-message.user {
-                flex-direction: row-reverse;
-            }
-            .chat-message .message-content {
-                display: inline-block;
-                padding: 10px;
-                border-radius: 10px;
-                max-width: 80%;
-            }
-            .chat-message.user .message-content {
-                background-color: #ffb3d9;
-                color: #fff;
-            }
-            .chat-message.bot .message-content {
-                background-color: #ffe6f2;
-                color: #333;
-            }
-            .chat-message img {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                margin: 0 10px;
-            }
-            .chat-input-container {
-                background-color: #fff;
-                border-top: 1px solid #eee;
-                padding: 10px;
-            }
-            .chat-input {
-                display: flex;
-                align-items: center;
-                margin-bottom: 5px;
-            }
-            .chat-input input {
-                flex: 1;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                outline: none;
-                margin-right: 10px;
-            }
-            .chat-input button {
-                padding: 10px 15px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                outline: none;
-            }
-            #send-button {
-                background-color: #ff66b2;
-                color: #fff;
-            }
-            #stop-button {
-                background-color: #ff6666;
-                color: #fff;
-                display: none;
-            }
-            .info-text {
-                font-size: 12px;
-                color: #999;
-                text-align: center;
-            }
-            .reset-button {
-                background-color: #ff66b2;
-                border: none;
-                border-radius: 5px;
-                color: #fff;
-                padding: 10px 15px;
-                cursor: pointer;
-            }
-            .code-block {
-                position: relative;
-                background-color: #f5f5f5;
-                border-left: 4px solid #ff99cc;
-                padding: 10px;
-                margin: 10px 0;
-                white-space: pre-wrap;
-                font-family: monospace;
-                max-width: 100%;
-                overflow: auto;
-            }
-            .copy-button {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                background-color: #ff99cc;
-                border: none;
-                color: white;
-                padding: 5px;
-                cursor: pointer;
-                border-radius: 3px;
-            }
-            .chat-message img.bot-image {
-                width: 100%;
-                max-width: 400px;
-                height: auto;
-                border-radius: 10px;
-            }
-        </style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f2;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 100%;
+            margin: 10px;
+        }
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ff99cc;
+            padding: 10px;
+            color: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+        .menu-items {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .menu-items a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .menu-items a:hover {
+            background-color: #f5f5f5;
+        }
+        .history-items {
+            display: none;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .history-items a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .history-items a:hover {
+            background-color: #f5f5f5;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            word-wrap: break-word;
+            display: flex;
+            align-items: flex-start;
+        }
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+        .chat-message .message-content {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+        .chat-message.user .message-content {
+            background-color: #ffb3d9;
+            color: #fff;
+        }
+        .chat-message.bot .message-content {
+            background-color: #ffe6f2;
+            color: #333;
+        }
+        .chat-message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        .chat-message img.bot-image, .chat-message img.user-image {
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+        .chat-input-container {
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            padding: 10px;
+        }
+        .chat-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            margin-right: 10px;
+        }
+        .chat-input button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+        }
+        #send-button {
+            background-color: #ff66b2;
+            color: #fff;
+        }
+        #stop-button {
+            background-color: #ff6666;
+            color: #fff;
+            display: none;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+        }
+        .reset-button {
+            background-color: #ff66b2;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .code-block {
+            position: relative;
+            background-color: #f5f5f5;
+            border-left: 4px solid #ff99cc;
+            padding: 10px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-width: 100%;
+            overflow: auto;
+        }
+        .copy-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #ff99cc;
+            border: none;
+            color: white;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .chat-message video, .chat-message img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .download-button {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #ff99cc;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px 0;
+        }
+        .carousel-container img {
+            max-width: 100px;
+            border-radius: 5px;
+        }
+        .news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .news-item {
+            display: flex;
+            gap: 10px;
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .news-item img {
+            max-width: 60px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="chat-container">
@@ -204,7 +237,7 @@
             <div class="menu-items" id="menu-items">
                 <a href="https://wa.me/message/2MOJNXNC45Y5E1">Kontak</a>
                 <a href="/plugins/tools.html">Tools</a>
-                <a href="/plugins/index.html">Hack</a> 
+                <a href="/plugins/index.html">Hack</a>
                 <a href="about.html">Tentang</a>
                 <a href="https://saweria.co/Vynaabot">Donasi</a>
                 <a href="#" onclick="toggleHistory(event)">Riwayat Pesan</a>
@@ -258,271 +291,227 @@
             return URL.createObjectURL(blob);
         }
 
+        async function getDownloadResponse(command, url) {
+            let apiUrl;
+            if (command === '/ttdl') {
+                apiUrl = `https://aemt.me/download/ttdl?url=${encodeURIComponent(url)}`;
+            } else if (command === '/igdl') {
+                apiUrl = `https://aemt.me/download/igdl?url=${encodeURIComponent(url)}`;
+            }
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            if (data.status === true) {
+                if (command === '/ttdl') {
+                    return data.result.video[0];
+                } else if (command === '/igdl') {
+                    return data.result[0].url;
+                }
+            } else {
+                return "Maaf, link tidak dapat diunduh saat ini.";
+            }
+        }
+
+        async function getIPInfo(ip) {
+            const response = await fetch(`https://ipapi.co/${ip}/json/`);
+            const data = await response.json();
+            return JSON.stringify(data, null, 2);
+        }
+
+        async function getYoutubeResponse(query) {
+            const response = await fetch(`https://api.lolhuman.xyz/api/ytplay?apikey=Faykaloffc&query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            if (data.status === 200) {
+                return {
+                    title: data.result.title,
+                    thumbnail: data.result.thumbnail,
+                    video: data.result.video.link,
+                    audio: data.result.audio.link,
+                };
+            } else {
+                return null;
+            }
+        }
+
+        async function getPinterestImages(query) {
+            const response = await fetch(`https://aemt.me/pinterest?query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            return data.result.slice(0, 5);
+        }
+
+        async function getNews() {
+            const response = await fetch(`https://aemt.me/cnbindonesia`);
+            const data = await response.json();
+            return data.result.slice(0, 5);
+        }
+
         function toggleMenu(event) {
-            event.stopPropagation(); 
-            const menuItems = document.getElementById('menu-items');
-            menuItems.style.display = menuItems.style.display === 'block' ? 'none' : 'block';
+            event.stopPropagation();
+            document.getElementById("menu-items").style.display = document.getElementById("menu-items").style.display === "block" ? "none" : "block";
         }
 
         function toggleHistory(event) {
-            event.stopPropagation(); 
-            const historyItems = document.getElementById('history-items');
-            historyItems.style.display = historyItems.style.display === 'block' ? 'none' : 'block';
+            event.stopPropagation();
+            document.getElementById("history-items").style.display = document.getElementById("history-items").style.display === "block" ? "none" : "block";
+            displayChatHistory();
         }
 
         function resetChat(event) {
-            event.stopPropagation(); 
-            if (chatHistory.length > 0) {
-                allChats.push({ title: `Chat ${allChats.length + 1}`, history: chatHistory });
-                localStorage.setItem('allChats', JSON.stringify(allChats));
-            }
-            document.getElementById('chat-messages').innerHTML = '';
+            event.stopPropagation();
             chatHistory = [];
-            loadChatHistory();
+            displayMessages();
         }
 
-        function loadChatHistory() {
+        function logout() {
+            localStorage.setItem('isLoggedIn', 'false');
+            window.location.href = 'login.html';
+        }
+
+        function addMessage(sender, text, isVideo = false, isImage = false, isAudio = false, isCarousel = false, isNews = false) {
+            chatHistory.push({ sender, text, isVideo, isImage, isAudio, isCarousel, isNews });
+            if (chatHistory.length > 50) {
+                chatHistory.shift();
+            }
+            allChats.push({ sender, text, isVideo, isImage, isAudio, isCarousel, isNews, timestamp: new Date().toLocaleString() });
+            localStorage.setItem('allChats', JSON.stringify(allChats));
+            displayMessages();
+        }
+
+        function displayMessages() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '';
+            chatHistory.forEach((msg) => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `chat-message ${msg.sender}`;
+                if (msg.isVideo) {
+                    messageElement.innerHTML = `<img src="media/${msg.sender === 'bot' ? 'bot' : 'user'}.jpg" class="${msg.sender}-image"><div class="message-content"><video controls><source src="${msg.text}" type="video/mp4">Your browser does not support the video tag.</video></div>`;
+                } else if (msg.isImage) {
+                    messageElement.innerHTML = `<img src="media/${msg.sender === 'bot' ? 'bot' : 'user'}.jpg" class="${msg.sender}-image"><div class="message-content"><img src="${msg.text}" class="${msg.sender}-image"></div>`;
+                } else if (msg.isAudio) {
+                    messageElement.innerHTML = `<img src="media/${msg.sender === 'bot' ? 'bot' : 'user'}.jpg" class="${msg.sender}-image"><div class="message-content"><audio controls><source src="${msg.text}" type="audio/mp3">Your browser does not support the audio tag.</audio></div>`;
+                } else if (msg.isCarousel) {
+                    messageElement.innerHTML = `<img src="media/${msg.sender === 'bot' ? 'bot' : 'user'}.jpg" class="${msg.sender}-image"><div class="message-content carousel-container">${msg.text}</div>`;
+                } else if (msg.isNews) {
+                    messageElement.innerHTML = `<img src="media/${msg.sender === 'bot' ? 'bot' : 'user'}.jpg" class="${msg.sender}-image"><div class="message-content news-container">${msg.text}</div>`;
+                } else {
+                    messageElement.innerHTML = `<img src="media/${msg.sender === 'bot' ? 'bot' : 'user'}.jpg" class="${msg.sender}-image"><div class="message-content">${msg.text}</div>`;
+                }
+                chatMessages.appendChild(messageElement);
+            });
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function displayChatHistory() {
             const historyItems = document.getElementById('history-items');
             historyItems.innerHTML = '';
-            allChats.forEach((chat, index) => {
+            allChats.slice().reverse().forEach((chat, index) => {
                 const historyItem = document.createElement('a');
                 historyItem.href = '#';
-                historyItem.textContent = chat.title;
-                historyItem.onclick = (event) => {
-                    event.preventDefault();
-                    loadChat(index);
+                historyItem.textContent = `${chat.sender}: ${chat.text}`;
+                historyItem.onclick = () => {
+                    chatHistory = allChats.slice(index, index + 50).map(({ sender, text, isVideo, isImage, isAudio, isCarousel, isNews }) => ({ sender, text, isVideo, isImage, isAudio, isCarousel, isNews }));
+                    displayMessages();
+                    document.getElementById('history-items').style.display = 'none';
                 };
                 historyItems.appendChild(historyItem);
             });
         }
 
-        function loadChat(index) {
-            const chat = allChats[index];
-            chatHistory = chat.history;
-            const chatMessages = document.getElementById('chat-messages');
-            chatMessages.innerHTML = '';
-            chat.history.forEach(message => {
-                addMessage(message.message, message.sender, false);
-            });
-        }
-
-        function addMessage(message, sender, isTyping = false) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'chat-message ' + sender;
-
-            const img = document.createElement('img');
-            img.src = sender === 'bot' ? 'https://telegra.ph/file/7d63a20290154d1f6f074.jpg' : 'https://telegra.ph/file/6b59b7652808c71f91ef8.png';
-            img.alt = sender;
-
-            const messageContent = document.createElement('div');
-            messageContent.className = 'message-content';
-            messageContent.textContent = isTyping ? '' : message;
-
-            messageDiv.appendChild(img);
-            messageDiv.appendChild(messageContent);
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            if (isTyping) {
-                let index = 0;
-                typingInterval = setInterval(() => {
-                    if (index < message.length) {
-                        messageContent.textContent += message[index];
-                        index++;
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                    } else {
-                        clearInterval(typingInterval);
-                        typingInterval = null;
-                        toggleButtons(false);
-                    }
-                }, 50);
-            } else if (sender === 'bot' && isCodeBlock(message)) {
-                const parts = splitCodeAndText(message);
-                parts.forEach(part => {
-                    if (part.isCode) {
-                        const codeBlock = document.createElement('div');
-                        codeBlock.className = 'code-block';
-                        codeBlock.textContent = part.content;
-
-                        const copyButton = document.createElement('button');
-                        copyButton.className = 'copy-button';
-                        copyButton.textContent = 'Salin';
-                        copyButton.onclick = () => copyToClipboard(part.content);
-
-                        codeBlock.appendChild(copyButton);
-                        messageContent.appendChild(codeBlock);
-                    } else {
-                        const textNode = document.createTextNode(part.content);
-                        messageContent.appendChild(textNode);
-                    }
-                });
-            }
-        }
-
-        function isCodeBlock(message) {
-            return message.includes('```');
-        }
-
-        function splitCodeAndText(message) {
-            const parts = [];
-            const regex = /(```[\s\S]*?```)/g;
-            let lastIndex = 0;
-            message.replace(regex, (match, p1, offset) => {
-                if (lastIndex < offset) {
-                    parts.push({ isCode: false, content: message.slice(lastIndex, offset) });
-                }
-                parts.push({ isCode: true, content: match.replace(/```/g, '').trim() });
-                lastIndex = offset + match.length;
-            });
-            if (lastIndex < message.length) {
-                parts.push({ isCode: false, content: message.slice(lastIndex) });
-            }
-            return parts;
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Kode disalin ke clipboard');
-            }).catch(err => {
-                alert('Gagal menyalin kode');
-            });
-        }
-
-        function toggleButtons(isGenerating) {
-            const sendButton = document.getElementById('send-button');
-            const stopButton = document.getElementById('stop-button');
-
-            if (isGenerating) {
-                sendButton.style.display = 'none';
-                stopButton.style.display = 'block';
-            } else {
-                sendButton.style.display = 'block';
-                stopButton.style.display = 'none';
-            }
-        }
-
         async function sendMessage() {
             const userInput = document.getElementById('user-input');
             const message = userInput.value.trim();
-            if (message === '') return;
+            if (!message) return;
 
-            if (message.toLowerCase() === '/modesimi') {
-                simiMode = true;
-                addMessage("Mode Simi telah diaktifkan.", 'bot');
-                userInput.value = '';
-                return;
-            } else if (message.toLowerCase() === '/offsimi') {
-                simiMode = false;
-                addMessage("Mode Simi telah dinonaktifkan.", 'bot');
-                                           userInput.value = '';
-                                           return;
-                                       }
+            addMessage('user', message);
+            userInput.value = '';
 
-                                       const isImageCommand = message.toLowerCase().startsWith('/aiimage1') || message.toLowerCase().startsWith('/aiimage2') || message.toLowerCase().startsWith('/aiimage3');
+            if (isGenerating) return;
 
-                                       if (isImageCommand) {
-                                           const command = message.split(' ')[0];
-                                           const text = message.slice(command.length).trim();
-                                           addMessage(message, 'user');
-                                           chatHistory.push({ sender: 'user', message: message });
-                                           userInput.value = '';
+            isGenerating = true;
+            document.getElementById('send-button').style.display = 'none';
+            document.getElementById('stop-button').style.display = 'block';
 
-                                           addMessage('Wait, proses generate...', 'bot');
-                                           const imageUrl = await getImageResponse(command, text);
-                                           addImageMessage(imageUrl, 'bot');
-                                           chatHistory.push({ sender: 'bot', message: imageUrl });
-                                       } else if (message.toLowerCase() === '/ping' || message.toLowerCase() === '/owner') {
-                                           addMessage(message, 'user');
-                                           chatHistory.push({ sender: 'user', message: message });
-                                           userInput.value = '';
+            if (simiMode) {
+                const simiResponse = await getSimiResponse(message);
+                addMessage('bot', simiResponse);
+            } else {
+                if (message.startsWith('/aiimage1') || message.startsWith('/aiimage2') || message.startsWith('/aiimage3')) {
+                    const [command, ...rest] = message.split(' ');
+                    const text = rest.join(' ');
+                    const imageUrl = await getImageResponse(command, text);
+                    addMessage('bot', imageUrl, false, true);
+                } else if (message.startsWith('/ttdl') || message.startsWith('/igdl')) {
+                    const [command, url] = message.split(' ');
+                    const downloadLink = await getDownloadResponse(command, url);
+                    addMessage('bot', downloadLink, command === '/ttdl');
+                } else if (message.startsWith('/modesimi')) {
+                    simiMode = true;
+                    addMessage('bot', 'Mode Simi diaktifkan.');
+                } else if (message.startsWith('/offsimi')) {
+                    simiMode = false;
+                    addMessage('bot', 'Mode Simi dinonaktifkan.');
+                } else if (message.startsWith('/trackip')) {
+                    const [, ip] = message.split(' ');
+                    const ipInfo = await getIPInfo(ip);
+                    addMessage('bot', `<pre class="code-block">${ipInfo}</pre>`);
+                } else if (message.startsWith('/play')) {
+                    const [, ...queryParts] = message.split(' ');
+                    const query = queryParts.join(' ');
+                    const youtubeResponse = await getYoutubeResponse(query);
+                    if (youtubeResponse) {
+                        addMessage('bot', `<strong>${youtubeResponse.title}</strong><br><img src="${youtubeResponse.thumbnail}" alt="Thumbnail"><br><a href="${youtubeResponse.video}" download="video.mp4" class="download-button">Download Video</a><br><a href="${youtubeResponse.audio}" download="audio.mp3" class="download-button">Download Audio</a>`);
+                    } else {
+                        addMessage('bot', 'Maaf, tidak dapat menemukan video.');
+                    }
+                } else if (message.startsWith('/pin')) {
+                    const [, ...queryParts] = message.split(' ');
+                    const query = queryParts.join(' ');
+                    const images = await getPinterestImages(query);
+                    const imageElements = images.map(img => `<img src="${img}" alt="Pinterest Image">`).join('');
+                    addMessage('bot', imageElements, false, false, false, true);
+                } else if (message.startsWith('/news')) {
+                    const news = await getNews();
+                    const newsElements = news.map(n => `
+                        <div class="news-item">
+                            <img src="${n.image}" alt="News Image">
+                            <div>
+                                <a href="${n.link}" target="_blank"><strong>${n.title}</strong></a><br>
+                                ${n.subtitle ? `${n.subtitle}<br>` : ''}
+                                <small>${n.date}</small>
+                            </div>
+                        </div>
+                    `).join('');
+                    addMessage('bot', newsElements, false, false, false, false, true);
+                } else {
+                    const botResponse = await getBotResponse(message);
+                    addMessage('bot', botResponse);
+                }
+            }
 
-                                           await handleSpecialCommands(message.toLowerCase());
-                                       } else {
-                                           addMessage(message, 'user');
-                                           chatHistory.push({ sender: 'user', message: message });
-                                           userInput.value = '';
+            isGenerating = false;
+            document.getElementById('send-button').style.display = 'block';
+            document.getElementById('stop-button').style.display = 'none';
+        }
 
-                                           if (simiMode) {
-                                               // Use Simi API
-                                               const simiResponse = await getSimiResponse(message);
-                                               addMessage(simiResponse, 'bot', true);
-                                               chatHistory.push({ sender: 'bot', message: simiResponse });
-                                           } else {
-                                               // Use the existing AI API
-                                               const historyText = chatHistory.map(item => `${item.sender}: ${item.message}`).join('\n');
-                                               isGenerating = true;
-                                               toggleButtons(true);
+        async function getBotResponse(message) {
+            const response = await fetch(`https://aemt.me/prompt/gpt?prompt=nama%20kamu%20adalah%20Vynaa%20AI%2C%20Kamu%20adalah%20AI%20assisten%20yang%20pintar%2C%20dan%20ceria.%20kamu%20diciptakan%20oleh%20Vynaa%20Valerie.%20kamu%20memiliki%20sifat%20ceria%20dan%20selalu%20membantu%20org%20lain%2C%20kadang%20kadang%20kamu%20sedikit%20manis%20jika%20berbicara%20manis%20dengan%20mu%2C%20kamu%20memiliki%20hobi%20bercerita%20dan%20mendengarkan%20orang%20bercerita&text=${encodeURIComponent(message)}`);
+            const data = await response.json();
+            return data.result.trim();
+        }
 
-                                               fetch(`https://aemt.me/prompt/gpt?prompt=nama%20kamu%20adalah%20Vynaa%20AI%2C%20Kamu%20adalah%20AI%20assisten%20yang%20pintar%2C%20dan%20ceria.%20kamu%20diciptakan%20oleh%20Vynaa%20Valerie.%20kamu%20memiliki%20sifat%20ceria%20dan%20selalu%20membantu%20org%20lain%2C%20kadang%20kadang%20kamu%20sedikit%20manis%20jika%20berbicara%20manis%20dengan%20mu%2C%20kamu%20memiliki%20hobi%20bercerita%20dan%20mendengarkan%20orang%20bercerita&text=${encodeURIComponent(historyText)}`)
-                                                   .then(response => response.json())
-                                                   .then(data => {
-                                                       if (data.status && isGenerating) {
-                                                           addMessage(data.result, 'bot', true);
-                                                           chatHistory.push({ sender: 'bot', message: data.result });
-                                                       } else {
-                                                           addMessage('Error: Tidak bisa mendapatkan respons dari AI.', 'bot');
-                                                       }
-                                                   })
-                                                   .catch((error) => {
-                                                       console.error('Error fetching AI response:', error);
-                                                       addMessage('Error: Tidak bisa terhubung ke server.', 'bot');
-                                                   })
-                                                   .finally(() => {
-                                                       isGenerating = false;
-                                                       toggleButtons(false);
-                                                   });
-                                           }
-                                       }
-                                   }
+        function stopMessageGeneration() {
+            isGenerating = false;
+            document.getElementById('send-button').style.display = 'block';
+            document.getElementById('stop-button').style.display = 'none';
+        }
 
-                                   async function handleSpecialCommands(command) {
-                                       let url;
-                                       if (command === '/ping') {
-                                           url = 'plugins/ping.html';
-                                       } else if (command === '/owner') {
-                                           url = 'plugins/owner.html';
-                                       }
+        document.addEventListener('DOMContentLoaded', () => {
+            displayMessages();
+        });
 
-                                       const response = await fetch(url);
-                                       const text = await response.text();
-                                       const tempDiv = document.createElement('div');
-                                       tempDiv.innerHTML = text;
-                                       const content = tempDiv.querySelector('div').textContent;
-
-                                       addMessage(content, 'bot');
-                                       chatHistory.push({ sender: 'bot', message: content });
-                                   }
-
-                                   function stopMessageGeneration() {
-                                       isGenerating = false;
-                                       clearInterval(typingInterval);
-                                       typingInterval = null;
-                                       toggleButtons(false);
-                                   }
-
-                                   function addImageMessage(imageURL, sender) {
-                                       const chatMessages = document.getElementById('chat-messages');
-                                       const messageDiv = document.createElement('div');
-                                       messageDiv.className = 'chat-message ' + sender;
-
-                                       const img = document.createElement('img');
-                                       img.src = imageURL;
-                                       img.alt = sender;
-                                       img.className = 'bot-image'; 
-
-                                       messageDiv.appendChild(img);
-                                       chatMessages.appendChild(messageDiv);
-                                       chatMessages.scrollTop = chatMessages.scrollHeight;
-                                   }
-
-                                   function logout() {
-                                       localStorage.removeItem('isLoggedIn');
-                                       window.location.href = 'login.html';
-                                   }
-
-                                   window.onload = function() {
-                                       loadChatHistory();
-                                   }                           </script>
-                           </body>
-                           </html>
+        document.addEventListener('click', () => {
+            document.getElementById("menu-items").style.display = 'none';
+            document.getElementById("history-items").style.display = 'none';
+        });
+    </script>
+</body>
+</html>
